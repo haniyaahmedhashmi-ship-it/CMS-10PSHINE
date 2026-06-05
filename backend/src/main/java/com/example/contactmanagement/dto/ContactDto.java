@@ -1,38 +1,32 @@
 package com.example.contactmanagement.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContactDto {
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "First name is required")
+    @Size(max = 50, message = "First name cannot exceed 50 characters")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "Last name is required")
+    @Size(max = 50, message = "Last name cannot exceed 50 characters")
     private String lastName;
 
+    @Size(max = 100, message = "Title cannot exceed 100 characters")
     private String title;
 
-    private List<String> emailAddresses;
+    private List<@Email(message = "Invalid email address") String> emailAddresses;
 
-    private List<String> phoneNumbers;
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public List<String> getEmailAddresses() { return emailAddresses; }
-    public void setEmailAddresses(List<String> emailAddresses) { this.emailAddresses = emailAddresses; }
-
-    public List<String> getPhoneNumbers() { return phoneNumbers; }
-    public void setPhoneNumbers(List<String> phoneNumbers) { this.phoneNumbers = phoneNumbers; }
+    private List<@Size(max = 20, message = "Phone number cannot exceed 20 characters") String> phoneNumbers;
 }
